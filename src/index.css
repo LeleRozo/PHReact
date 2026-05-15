@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+  color: white;
+  background-image: url(./assets/fondoapp.png);
+  background-repeat: no-repeat; /* Evita que se repita */
+  background-position: center fixed; /* Centra la imagen */
+  background-size: cover; /* Escala la imagen para cubrir toda la pantalla */
+}
+
+input,
+select {
+  background-color: white;
+  border: none;
+  margin: 5px;
+  border-radius: 16px;
+  height: 35px;
+  width: 300px;
+  text-align: center;
+  text-transform: capitalize;
+}
+a {
+  text-decoration: none; /*le quita el subrayado*/
+  color: inherit; /*le quita el color del hipervinculo por defecto*/
+}
+.btn {
+  background-color: #31405c;
+  height: 35px;
+  width: 300px;
+  border-radius: 16px;
+  border: none;
+  color: white;
+  cursor: pointer; /*cambia el cursor a la manito cuando me paro sobre el elemento*/
+  margin-bottom: 20px;
+}

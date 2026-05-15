@@ -1,0 +1,48 @@
+.logo {
+  height: 18%; /* Ajusta la altura del logo */
+  max-width: 100%; /* Mantiene la proporción original */
+  display: block; /* Elimina espacios extra alrededor */
+  margin-top: 10px;
+}
+.navbar {
+  position: fixed; /*fija la barra en la pantalla*/
+  top: 0%;
+  left: 5%;
+  height: 100vh;
+  width: 180px;
+  background-color: white;
+  color: #31405c;
+}
+
+.itemsFin {
+  margin-top: 60%;
+}
+
+.icon {
+  max-width: 100%;
+  height: 20px;
+  margin-right: 10px;
+  
+}
+.items {
+  margin-top: 5%;
+}
+.item {
+  display: flex; /* hace que el enlace se comporte como un bloque */
+  padding-left: 30px;
+  padding-top: 5px;
+  padding-bottom: 5px; /* espacio alrededor del texto e icono */
+  text-decoration: none;
+  color: #333; /* color normal del texto */
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.item:hover {
+  background-color: #31405c; /* color de fondo al pasar el puntero */
+  color: #fff; /* color del texto al pasar el puntero */
+}
+.item:hover .icon {
+  filter: brightness(0) invert(1);
+}

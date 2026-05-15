@@ -1,0 +1,23 @@
+.containerR {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10%;
+}
+.formularioR {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.inputsform {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2%;
+  margin-bottom: 3%;
+}
+.btn {
+  align-items: center;
+}
