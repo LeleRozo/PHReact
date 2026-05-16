@@ -3,6 +3,7 @@ import "../styles/registroUsuario.css";
 import { Link } from "react-router-dom";
 import { useState } from "react"; //herramienta de react para guardar datos que pueden cambiar.
 
+//se crea la función con el nombre de la vista, parte logica de la función, return lo que ve el usuario.
 function Registro() {
   const [nombres, setNombres] = useState("");
   const [apellidos, setApellidos] = useState("");
@@ -61,6 +62,14 @@ function Registro() {
       return; //se detiene y no guarda nada.
     }
 
+    //verifica si el usuario ya existe
+    const usuarioExiste = usuariosGuardados.find((user) => user.usuario === usuario
+  );
+
+  if(usuarioExiste){
+    alert("El usuario ya existe, intente con uno nuevo.");
+    return;
+  }
     //agrega el nuevo usuario guardado
     usuariosGuardados.push(nuevoUsuario);
 

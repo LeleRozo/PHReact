@@ -1,5 +1,8 @@
 import logo from "../assets/logo.png";
 import "../styles/navbar.css";
+import { useNavigate } from "react-router-dom";
+
+//iconos
 import { IoHomeOutline, IoCalendarOutline } from "react-icons/io5";
 import { LuUsersRound } from "react-icons/lu";
 import { RiHotelBedLine } from "react-icons/ri";
@@ -7,7 +10,18 @@ import { LiaTshirtSolid } from "react-icons/lia";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { TbReport } from "react-icons/tb";
 import { BsNut, BsBoxArrowLeft } from "react-icons/bs";
+
 function Navbar() {
+  const navigate = useNavigate();
+
+  const cerrarSesion = () => {
+    //elimino la sesión guardada
+    localStorage.removeItem("usuarioActivo");
+
+    //redirige al login
+    navigate("/login", {replace: true});
+  };
+
   return (
     <nav className="navbar">
       <img className="logo" src={logo} alt="logo" />
@@ -47,7 +61,7 @@ function Navbar() {
             <BsNut className="icon" />
             Configuración
           </ol>
-          <ol className="item">
+          <ol className="item" onClick={cerrarSesion}>
             <BsBoxArrowLeft className="icon" />
             Cerrar sesión
           </ol>
