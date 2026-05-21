@@ -1,0 +1,74 @@
+/*el contenedor completo de clientes*/
+.containerClientes {
+  height: 100vh; /*alto de la pantalla*/
+  margin-left: 260px; /*quitando el espacio donde va la barra lateral izquierda*/
+  width: calc(
+    100% - 300px
+  ); /*calcula el ancho completo de la pantalla menos los 220px de la barra lateral*/
+}
+/*se separa con coma para agregar una nueva clase*/
+select,
+label,
+.fecha,
+h5 {
+  color: rgb(120, 118, 118);
+}
+h5 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-left: 5%;
+  margin-bottom: 1%;
+}
+/*el cuadro de inputs con background blanco*/
+.cuadro {
+  padding-top: 3%;
+  width: 100%;
+  height: auto;
+  background-color: white;
+}
+input,
+select,
+.cuadro {
+  box-shadow: 4px 4px 10px gray;
+}
+hr {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+/*información de estadia*/
+.estadia {
+  display: flex;
+  gap: 0.2%;
+  flex-wrap: wrap;
+}
+.tipoHab {
+  margin-top: 3%;
+}
+.dFechas {
+  display: flex;
+  flex-direction: column;
+}
+label {
+  margin-left: 5rem;
+}
+
+.botones {
+  margin: 5%;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 2%;
+}
+
+.boton {
+  background-color: white;
+  border: none;
+  box-shadow: 4px 4px 6px gray;
+  width: 15rem;
+  height: 30px;
+  border-radius: 16px;
+  transition: background-color 0.3s color 0.3;
+}
+.boton:hover {
+  background-color: #31405c;
+  color: white;
+}

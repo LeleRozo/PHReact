@@ -1,11 +1,9 @@
 .containerInicio {
-  
   height: 100vh; /*alto de la pantalla*/
   margin-left: 260px; /*quitando el espacio donde va la barra lateral izquierda*/
   width: calc(
     100% - 300px
   ); /*calcula el ancho completo de la pantalla menos los 220px de la barra lateral*/
-
 }
 
 h2 {
@@ -19,12 +17,10 @@ h2 {
 }
 
 .cardsContainer {
- 
   display: flex; /*para poner una al lado de la otra*/
   flex-wrap: wrap;
   gap: 2rem; /*espacio entre cada card*/
   margin-bottom: 5%;
-  
 }
 .card {
   display: flex;

@@ -6,6 +6,8 @@ import "./App.css";
 import Login from "./pages/login.jsx";
 import Registro from "./pages/registroUsuario.jsx";
 import Home from "./pages/home.jsx";
+import HistorialH from "./pages/historialH.jsx";
+import RegistroH from "./pages/registroH.jsx";
 
 function App() {
   return (
@@ -17,7 +19,9 @@ function App() {
       {/* Ruta para abrir la página de registro */}
       <Route path="/registro" element={<Registro />} />
       {/**ruta para el inicio de la aplicación */}
-      <Route path="/home" element={<Home/>} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/historialH" element={<HistorialH />} />
+      <Route path="/registroH" element={<RegistroH/>}/>
     </Routes>
   );
 }

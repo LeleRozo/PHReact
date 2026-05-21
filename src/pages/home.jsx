@@ -28,33 +28,33 @@ function Home() {
   }, [navigate]);
   return (
     <div className="containerInicio">
-      <Navbar />{" "}
+      <Navbar />
       {/**etiqueta simple para usar el componente que acabo de importar para mostrarlo en el home */}
       <h2>INICIO</h2>
       <div className="cardsContainer">
         <div className="card" id="card1">
-          <h5>Total de habitaciones</h5>
+          <h4>Total de habitaciones</h4>
           <p>
             <FaBed className="icon" />
             50
           </p>
         </div>
         <div className="card" id="card2">
-          <h5>Habitaciones disponibles</h5>
+          <h4>Habitaciones disponibles</h4>
           <p>
             <IoBed className="icon" />
             25
           </p>
         </div>
         <div className="card" id="card3">
-          <h5>Habitaciones ocupadas</h5>
+          <h4>Habitaciones ocupadas</h4>
           <p>
             <FaBed className="icon" />
             23
           </p>
         </div>
         <div className="card" id="card4">
-          <h5>En espera de limpieza</h5>
+          <h4>En espera de limpieza</h4>
           <p>
             <MdCleaningServices className="icon" />2
           </p>
@@ -83,8 +83,8 @@ function Home() {
             </a>
           </li>
           <li>
-            <Link to="#">
-              <MdOutlineHistory className="icon" />{" "}
+            <Link to="/historialH">
+              <MdOutlineHistory className="icon" />
               {/**etiqueta de icono en verde */}
               Historial de clientes
             </Link>
