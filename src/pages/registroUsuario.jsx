@@ -2,6 +2,8 @@ import "../styles/login.css";
 import "../styles/registroUsuario.css";
 import { Link } from "react-router-dom";
 import { useState } from "react"; //herramienta de react para guardar datos que pueden cambiar.
+import Notificacion from "../components/notificacion";
+//import { AiOutlineAim } from "react-icons/ai";
 
 //se crea la función con el nombre de la vista, parte logica de la función, return lo que ve el usuario.
 function Registro() {
@@ -11,77 +13,47 @@ function Registro() {
   const [usuario, setUsuario] = useState("");
   const [contrasena, setContrasena] = useState("");
   const [verifContrasena, setVerifContrasena] = useState("");
+  const [mensaje, setMensaje] = useState("");
+  const [tipoMensaje, setTipoMensaje] = useState("");
 
-  //creacion de funcion que guarda los inputs temporalmente
-  const registrarUsuario = (e) => {
+  //creo la función registrar usuario, async le dice a js que esta funcion va a hacer operaciónes que toman tiempo y e.prevent evita que el formulario recargue la pagina al enviarse.
+  const registrarUsuario = async (e) => {
     e.preventDefault();
 
-    /**aqui muestro los datos por consola 
-    console.log(nombres);
-    console.log(apellidos);
-    console.log(telefono);
-    console.log(usuario);
-    console.log(contrasena);
-*/
-
-    //creo un objeto
-    const nuevoUsuario = {
-      nombres,
-      apellidos,
-      telefono,
-      usuario,
-      contrasena,
-    };
-    //lee los usuarios guardados o de los contrario usa uno vació(json.parse convierte texto a array)
-    const usuariosGuardados =
-      JSON.parse(localStorage.getItem("usuarios")) || [];
-
-    //validaciones de información dentro del formulario
-    //creo una variable que contenga solo letras.
-
-    //veriicación
-
-    //verificación de que las contraseñas coincidan.
     if (contrasena !== verifContrasena) {
-      alert("Las contraseñas no coinciden, por favor verifique la información");
+      alert("Las contraseñas no coinciden");
       return;
     }
+    //creamos la variable respuesta para que guarde la respuesta de php, await le dice que espere a que php responda.
+    const respuesta = await fetch("/api/usuarios.php", {
+      method: "POST",
+      //los headers son metadatos que acompañan una peticion y content-type: application/json, le dice a php que los datos que se van a enviar van en formato json.
+      headers: {
+        "Content-Type": "application/json",
+      },
+      //este body son los datos que viajan en la petición, json.stringify convierte los datos que ingresa el cliente en formato json para que php pueda leerlos.
+      body: JSON.stringify({
+        nombres,
+        apellidos,
+        telefono,
+        usuario,
+        contrasena,
+      }),
+    });
+    //creando la variable data y le decimos  que espere la respuesta y que luego la convierta a json
+    const data = await respuesta.json();
 
-    //si hay campos obligatorios vacíos
-    if (
-      !nombres ||
-      !apellidos ||
-      !telefono ||
-      !usuario ||
-      !contrasena ||
-      !verifContrasena
-    ) {
-      alert(
-        "⚠️ Debes completar el formulario, todos los campos son obligatorios*",
-      );
-      return; //se detiene y no guarda nada.
+    if (data.mensaje) {
+      setMensaje(data.mensaje);
+      setTipoMensaje("exito");
+      setTimeout(() => setMensaje(""), 3000); //si data contiene un mensaje actualiza el estado del mensaje y muestralo , luego de 3 seg actualiza de nuevo setmensaje a vacío.
+    } else if (data.error) {
+      setMensaje(data.error);
+      setTipoMensaje("error");
+      setTimeout(() => setMensaje(""), 3000); //y si contiene un error, muestralo y haz lo mismo de arriba.
     }
 
-    //verifica si el usuario ya existe
-    const usuarioExiste = usuariosGuardados.find((user) => user.usuario === usuario
-  );
-
-  if(usuarioExiste){
-    alert("El usuario ya existe, intente con uno nuevo.");
-    return;
-  }
-    //agrega el nuevo usuario guardado
-    usuariosGuardados.push(nuevoUsuario);
-
-    //guarda nuevamente con el usuario actualizado (json.stringify convierte un array a texto)
-    localStorage.setItem("usuarios", JSON.stringify(usuariosGuardados));
-    //muestra los usuariosGuardados por consola
-    console.log(usuariosGuardados);
-
-    //mensaje de exito
-    alert("Usuario registrado correctamente");
-
-    //limpiar inputs
+    //volvemos a actualizar el estado a vacío. para que los inputs queden vacios luego de enviar la información
     setNombres("");
     setApellidos("");
     setTelefono("");
@@ -92,55 +64,56 @@ function Registro() {
 
   return (
     <div className="containerR">
+      <Notificacion mensaje={mensaje} tipo={tipoMensaje} />
       <h2>REGISTRO</h2>
       <form
         className="formularioR"
         id="formRegistro"
         onSubmit={registrarUsuario}
       >
-      <div className="inputsform">
-        <input
-          type="text"
-          name="nombres"
-          placeholder="Nombres"
-          value={nombres}
-          onChange={(e) => setNombres(e.target.value)}
-        />
-        <input
-          type="text"
-          name="apellidos"
-          placeholder="Apellidos"
-          value={apellidos}
-          onChange={(e) => setApellidos(e.target.value)}
-        />
-        <input
-          type="text"
-          name="telefono"
-          placeholder="Telefono"
-          value={telefono}
-          onChange={(e) => setTelefono(e.target.value)}
-        />
-        <input
-          type="text"
-          name="usuario"
-          placeholder="Usuario"
-          value={usuario}
-          onChange={(e) => setUsuario(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          name="contrasena"
-          value={contrasena}
-          onChange={(e) => setContrasena(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Verifique la contraseña"
-          name="verifContrasena"
-          value={verifContrasena}
-          onChange={(e) => setVerifContrasena(e.target.value)}
-        />
+        <div className="inputsform">
+          <input
+            type="text"
+            name="nombres"
+            placeholder="Nombres"
+            value={nombres}
+            onChange={(e) => setNombres(e.target.value)}
+          />
+          <input
+            type="text"
+            name="apellidos"
+            placeholder="Apellidos"
+            value={apellidos}
+            onChange={(e) => setApellidos(e.target.value)}
+          />
+          <input
+            type="text"
+            name="telefono"
+            placeholder="Telefono"
+            value={telefono}
+            onChange={(e) => setTelefono(e.target.value)}
+          />
+          <input
+            type="text"
+            name="usuario"
+            placeholder="Usuario"
+            value={usuario}
+            onChange={(e) => setUsuario(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Contraseña"
+            name="contrasena"
+            value={contrasena}
+            onChange={(e) => setContrasena(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Verifique la contraseña"
+            name="verifContrasena"
+            value={verifContrasena}
+            onChange={(e) => setVerifContrasena(e.target.value)}
+          />
         </div>
         <button className="btn" type="submit">
           REGISTRAR
