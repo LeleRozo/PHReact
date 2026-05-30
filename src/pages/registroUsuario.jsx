@@ -25,7 +25,7 @@ function Registro() {
       return;
     }
     //creamos la variable respuesta para que guarde la respuesta de php, await le dice que espere a que php responda.
-    const respuesta = await fetch("/api/usuarios.php", {
+    const respuesta = await fetch("/api/usuarios", {
       method: "POST",
       //los headers son metadatos que acompañan una peticion y content-type: application/json, le dice a php que los datos que se van a enviar van en formato json.
       headers: {

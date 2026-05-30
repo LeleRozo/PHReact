@@ -2,6 +2,8 @@ import "../styles/home.css"; //hoja de estilos del home
 import Navbar from "../components/navbar"; //importo el componente navbar para mostrarlo en esta vista
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
+//useEffect es un hook que ejecuta codigo luego de que un componente se carga.
 import { useEffect } from "react";
 
 //import de los iconos que uso dentro de la vista home
@@ -16,16 +18,21 @@ import { LuCalendarPlus2 } from "react-icons/lu";
 
 //vista home
 function Home() {
+  //al home le agregamos una verificación para saber si ya hay una sesion iniciada y si no que se salga de inmediato y envie al login.
+
+  //definimos navigate para poder usarlo abajo
   const navigate = useNavigate();
 
+  //luego de que el componente home.jsx carga, revisa si hay una sesion iniciada.
   useEffect(() => {
     const usuarioActivo = localStorage.getItem("usuarioActivo");
 
-    //si no hay sesion
+    //entonces preguntamos si no hay sesion iniciada entonces redirige al login, reemplaza la page por la del login
     if (!usuarioActivo) {
       navigate("/login", { replace: true });
     }
   }, [navigate]);
+
   return (
     <div className="containerInicio">
       <Navbar />
