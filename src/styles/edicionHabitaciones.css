@@ -1,0 +1,55 @@
+.conPrincipal {
+  display: flex;
+  flex-direction: column;
+
+  margin: 3%;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputsHab {
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+}
+
+.btncenter {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  margin-top: 2%;
+}
+
+.listaHabs {
+  margin-top: 3%;
+  background-color: rgb(255, 255, 255);
+  color: rgb(108, 108, 108);
+  width: 80%;
+}
+.listaHabs ul {
+  padding-left: 5%;
+  padding-right: 5%;
+
+  height: auto;
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin-bottom: 2%;
+}
+.filaHab {
+  padding-left: 5%;
+  padding-right: 5%;
+
+  height: auto;
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin-bottom: 1%;
+}
+
+.ico {
+  font-size: 18px;
+  border: none;
+  margin-left: 3%;
+  background: none;
+  cursor: pointer;
+}

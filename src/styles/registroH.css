@@ -31,8 +31,8 @@ select,
   box-shadow: 4px 4px 10px gray;
 }
 hr {
-  margin-top: 2%;
-  margin-bottom: 2%;
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
 /*información de estadia*/
 .estadia {
@@ -67,8 +67,14 @@ label {
   height: 30px;
   border-radius: 16px;
   transition: background-color 0.3s color 0.3;
+  cursor: pointer;
+  transition: transform 0.1;
 }
 .boton:hover {
   background-color: #31405c;
   color: white;
+}
+
+.boton:active {
+  transform: scale(0.95);
 }

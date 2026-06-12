@@ -1,16 +1,68 @@
-# React + Vite
+# 🏨 HotelTrack — Sistema de Gestión Hotelera
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+HotelTrack es una aplicación web para la gestión de un hotel. Permite administrar habitaciones, registrar huéspedes, controlar check-ins y check-outs, y gestionar los usuarios del sistema.
 
-Currently, two official plugins are available:
+**Stack tecnológico:**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Frontend:** React 19 + Vite
+- **Backend:** PHP (API REST)
+- **Base de datos:** MySQL
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📁 Estructura del Proyecto
 
-## Expanding the ESLint configuration
+```
+hotelR/
+├── backend/
+│   ├── config/
+│   │   └── db.php               # Conexión a la base de datos
+│   ├── controllers/
+│   │   ├── HabitacionesController.php
+│   │   ├── HuespedController.php
+│   │   ├── HuespedesActivosController.php
+│   │   ├── checkOutController.php
+│   │   ├── LoginController.php
+│   │   └── UsuariosController.php
+│   ├── helpers/
+│   │   └── Respond.php          # Helper para respuestas JSON
+│   └── index.php                # Punto de entrada (router)
+├── src/
+│   ├── pages/                   # Vistas de React
+│   ├── components/              # Componentes reutilizables
+│   └── styles/                  # Estilos CSS
+├── index.html
+├── vite.config.js
+└── package.json
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Instalación
+
+```bash
+# 1. Instalar dependencias
+npm install
+
+# 2. Configurar la base de datos en backend/config/db.php
+
+# 3. Correr el proyecto
+npm run dev                        # Frontend → http://localhost:5173
+php -S localhost:8000 backend/     # Backend  → http://localhost:8000
+```
+
+---
+
+## Endpoints
+
+| Método | Ruta                | Descripción         |
+| ------ | ------------------- | ------------------- |
+| POST   | `/usuarios`         | Registrar usuario   |
+| POST   | `/login`            | Iniciar sesión      |
+| GET    | `/habitaciones`     | Listar habitaciones |
+| POST   | `/habitaciones`     | Crear habitación    |
+| PUT    | `/habitaciones`     | Editar habitación   |
+| DELETE | `/habitaciones`     | Eliminar habitación |
+| POST   | `/registroH`        | Registrar huésped   |
+| GET    | `/huespedesActivos` | Listar huéspedes    |
+| PUT    | `/checkOut?id={id}` | Hacer check-out     |

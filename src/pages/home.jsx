@@ -93,7 +93,7 @@ function Home() {
             <Link to="/historialH">
               <MdOutlineHistory className="icon" />
               {/**etiqueta de icono en verde */}
-              Historial de clientes
+              Gestion de huéspedes
             </Link>
           </li>
         </ul>

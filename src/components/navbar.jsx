@@ -28,24 +28,26 @@ function Navbar() {
       <ul className="items">
         <Link to="/home">
           <ol className="item">
-            <IoHomeOutline class="icon" />
+            <IoHomeOutline className="icon" />
             Inicio
           </ol>
         </Link>
         <Link to="/registroH">
           <ol className="item">
             <LuUsersRound className="icon" />
-            Clientes
+            Huespedes
           </ol>
         </Link>
         <ol className="item">
           <IoCalendarOutline className="icon" />
           Reservas
         </ol>
-        <ol className="item">
-          <RiHotelBedLine className="icon" />
-          Habitaciones
-        </ol>
+        <Link to="/habitaciones">
+          <ol className="item">
+            <RiHotelBedLine className="icon" />
+            Habitaciones
+          </ol>
+        </Link>
         <ol className="item">
           <LiaTshirtSolid className="icon" />
           Servicios

@@ -5,7 +5,7 @@
 
 function Respond($data, int $code = 200): void
 {
-    header('Content-Type: application/json; chaset=utf-8'); //esta dice que la respuesta llega en formato json.
+    header('Content-Type: application/json; charset=utf-8'); //esta dice que la respuesta llega en formato json.
     http_response_code(($code)); //envia el codigo por defecto establecido dentro de los parametros de la función.
     echo json_encode($data, JSON_UNESCAPED_UNICODE); //esta linea convierte los datos a json y los envia a react. por eso le pasa la variable $data y json_unescapedd_unicode es para que interprete como letras las tildes y las ñ.
     exit(); //detiene todo el programa luego de ejecutarse el codigo.

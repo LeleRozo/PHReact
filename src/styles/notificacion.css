@@ -1,12 +1,14 @@
 .notif {
-  position: fixed; /*se queda fijo asi hagas scroll*/
-  top: 20px; /*aparece arriba de todos los elementos*/
-  left: 50%; /*y el de abajo lo centran horizontalmente*/
-  transform: translate(-50%);
-  padding: 12px 24px;
+  width: fit-content;
+
+  /* centra horizontalmente */
+  margin: 15px auto;
+
+  padding: 10px 24px;
   border-radius: 8px;
   font-weight: 500;
-  z-index: 1000; /*aparece encima de todo*/
+
+  text-align: center;
 }
 
 .exito {

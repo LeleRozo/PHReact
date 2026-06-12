@@ -1,95 +1,131 @@
 import "../styles/registroH.css";
-import { useState } from "react"; //para manejar estados
+import { useState, useEffect } from "react"; //para manejar estados
 import "../components/navbar";
 import Navbar from "../components/navbar";
+import Notificacion from "../components/notificacion";
 
 function RegistroH() {
-  const [huesped, setHuesped] = useState({
-    //datos personales
-    nombres: "",
-    apellidos: "",
-    tipoDocto: "",
-    numDoc: "",
-    telefono: "",
-    ocupacion: "",
+  const [nombres, setNombres] = useState("");
+  const [apellidos, setApellidos] = useState("");
+  const [tipoDocumento, setTipoDocumento] = useState("");
+  const [numeroDocumento, setNumeroDocumento] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [ocupacion, setOcupacion] = useState("");
+  const [tipoHabitacion, setTipoHabitacion] = useState("");
+  const [numeroHabitacion, setNumeroHabitacion] = useState("");
+  const [mensaje, setMensaje] = useState("");
+  const [tipoMensaje, setTipoMensaje] = useState("");
+  const [habitaciones, setHabitaciones] = useState([]);
+  const [numerosFiltrados, setNumerosFiltrados] = useState([]);
 
-    //datos de estadía
-    fechaEntrada: "",
-    fechaSalida: "",
-    habitacion: "",
-  });
+  //traer las  habitaciones del back
+  useEffect(() => {
+    fetch("/api/habitaciones")
+      .then((res) => res.json())
+      .then((data) => setHabitaciones(data));
+  }, []);
 
-  //funcion que captura lo que escribe el usuario en los inputs
-  const handleChange = (e) => {
-    setHuesped({
-      //copia los datos anteriores
-      ...huesped,
-
-      //guarda el valor que tomó el input
-      [e.target.name]: e.target.value,
-    });
+  //funcion para filtracion de numero de hab segun el tipo de habitacion.
+  const handleTipoHabitacion = (e) => {
+    const tipo = e.target.value;
+    setTipoHabitacion(tipo);
+    setNumeroHabitacion(""); // resetea el número cuando cambia el tipo
+    // filtra las habitaciones que sean del tipo elegido Y estén disponibles
+    const filtradas = habitaciones.filter(
+      (hab) => hab.tipo_habitacion === tipo && hab.estado === "disponible",
+    );
+    setNumerosFiltrados(filtradas);
   };
 
-  //funcion para guardar el huesped en el localstorage
-  const guardar = () => {
-    const huespedesGuardados =
-      JSON.parse(localStorage.getItem("huespedes")) || [];
+  const guardarUsuario = async (e) => {
+    e.preventDefault();
 
-    //agrega el nuevo huesped al array creado arriba
-    huespedesGuardados.push(huesped);
+    const respuesta = await fetch("/api/registroH", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nombres,
+        apellidos,
+        tipoDocumento,
+        numeroDocumento,
+        telefono,
+        ocupacion,
+        tipoHabitacion,
+        numeroHabitacion,
+      }),
+    });
 
-    //se guarda nuevamente el array actualizado con el nuevo cliente en el localstorage
-    localStorage.setItem("huespedes", JSON.stringify(huespedesGuardados));
-    alert("El cliente fue registrado correctamente ✅");
+    const data = await respuesta.json();
+    if (data.mensaje) {
+      setMensaje(data.mensaje);
+      setTipoMensaje("exito");
+      setTimeout(() => setMensaje(""), 3000); //si data contiene un mensaje actualiza el estado del mensaje y muestralo , luego de 3 seg actualiza de nuevo setmensaje a vacío.
+    } else if (data.error) {
+      setMensaje(data.error);
+      setTipoMensaje("error");
+      setTimeout(() => setMensaje(""), 3000); //y si contiene un error, muestralo y haz lo mismo de arriba.
+    }
 
-    limpiarFormulario();
+    //limpiar formulario
+
+    setNombres("");
+    setApellidos("");
+    setTipoDocumento("");
+    setNumeroDocumento("");
+    setTelefono("");
+    setOcupacion("");
+    setTipoHabitacion("");
+    setNumeroHabitacion("");
   };
 
-  //limpiar inputs
-  //creo la funcion para limpiar los inputs y al contenedor de estado setHuesped lo vuelvo a dejar vacío
-  const limpiarFormulario = () => {
-    setHuesped({
-      nombres: "",
-      apellidos: "",
-      tipoDocto: "",
-      numDoc: "",
-      telefono: "",
-      ocupacion: "",
-      fechaEntrada: "",
-      fechaSalida: "",
-      habitacion: "",
-    });
+  const cancelarRegistro = () => {
+    setNombres("");
+    setApellidos("");
+    setTipoDocumento("");
+    setNumeroDocumento("");
+    setTelefono("");
+    setOcupacion("");
+    setTipoHabitacion("");
+    setNumeroHabitacion("");
   };
 
   return (
     <div className="containerClientes">
       <Navbar />
+
       <h2>CLIENTES</h2>
       <div className="cuadro">
         <h5>INFORMACIÓN PERSONAL</h5>
-        <form action="" className="formRClientes" id="formClientes">
+        <Notificacion mensaje={mensaje} tipo={tipoMensaje} />
+        <form
+          onSubmit={guardarUsuario}
+          className="formRClientes"
+          id="formClientes"
+        >
           {/**value conecta el input con el estado y onChange detecta cambios en el valor */}
           <input
             type="text"
             placeholder="Nombres*"
             name="nombres"
-            value={huesped.nombres}
-            onChange={handleChange}
+            value={nombres}
+            onChange={(e) => setNombres(e.target.value)}
             required
           />
           <input
             type="text"
             name="apellidos"
             placeholder="Apellidos*"
-            value={huesped.apellidos}
-            onChange={handleChange}
+            value={apellidos}
+            onChange={(e) => setApellidos(e.target.value)}
             required
           />
           <select
-            name="tipoDocto"
+            name="tipoDocumento"
             className="tipoDoc"
-            value={huesped.tipoDocto}
-            onChange={handleChange}
+            value={tipoDocumento}
+            onChange={(e) => setTipoDocumento(e.target.value)}
           >
             <option value="">Tipo de documento</option>
             <option value="cc">Cedula de ciudadanía</option>
@@ -99,77 +135,82 @@ function RegistroH() {
           <input
             type="text"
             placeholder="Número de documento*"
-            name="numDoc"
-            value={huesped.numDoc}
-            onChange={handleChange}
+            name="numeroDocumento"
+            value={numeroDocumento}
+            onChange={(e) => setNumeroDocumento(e.target.value)}
             required
           />
           <input
             type="tel"
             placeholder="Telefono*"
             name="telefono"
-            value={huesped.telefono}
-            onChange={handleChange}
+            value={telefono}
+            onChange={(e) => setTelefono(e.target.value)}
             required
           />
           <input
             type="text"
             placeholder="Ocupación"
             name="ocupacion"
-            value={huesped.ocupacion}
-            onChange={handleChange}
+            value={ocupacion}
+            onChange={(e) => setOcupacion(e.target.value)}
           />
           <hr />
           <div className="infoHabitación">
             <h5>INFORMACIÓN DE ESTADÍA</h5>
             <div className="estadia">
-              <div className="dFechas">
-                <label htmlFor="fEntrada">Fecha de entrada</label>
-                <input
-                  type="date"
-                  name="fechaEntrada"
-                  id="fEntrada"
-                  value={huesped.fechaEntrada}
-                  onChange={handleChange}
-                  className="fecha"
-                />
-              </div>
-              <div className="dFechas">
-                <label htmlFor="fSalida">Fecha de salída</label>
-                <input
-                  type="date"
-                  name="fechaSalida"
-                  id="fSalida"
-                  value={huesped.fechaSalida}
-                  onChange={handleChange}
-                  className="fecha"
-                />
-              </div>
+              {/* Select de tipo — opciones dinámicas según lo guardado en BD */}
               <select
-                name="habitacion"
-                value={huesped.habitacion}
-                onChange={handleChange}
+                name="tipoHabitacion"
                 className="tipoHab"
+                value={tipoHabitacion}
+                onChange={handleTipoHabitacion}
               >
                 <option value="">Tipo de habitación</option>
-                <option value="sencillaA">Sencilla/ventilador</option>
-                <option value="sencillaV">Sencilla/aire</option>
-                <option value="dobleV">Doble/ventilador</option>
-                <option value="dobleA">Doble/aire</option>
-                <option value="doscamas">Dos camas</option>
+                {/* saca los tipos únicos de las habitaciones disponibles */}
+                {[
+                  ...new Set(
+                    habitaciones
+                      .filter((h) => h.estado === "disponible")
+                      .map((h) => h.tipo_habitacion),
+                  ),
+                ].map((tipo) => (
+                  <option key={tipo} value={tipo}>
+                    {tipo}
+                  </option>
+                ))}
+              </select>
+              {/* Select de número — solo aparece si ya eligió un tipo */}
+              <select
+                name="numeroHabitacion"
+                className="tipoHab"
+                value={numeroHabitacion}
+                onChange={(e) => setNumeroHabitacion(e.target.value)}
+                disabled={!tipoHabitacion}
+              >
+                <option value="">
+                  {tipoHabitacion
+                    ? "Selecciona número"
+                    : "Primero elige el tipo"}
+                </option>
+                {numerosFiltrados.map((hab) => (
+                  <option key={hab.id} value={hab.numero_habitacion}>
+                    Habitación {hab.numero_habitacion}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
         </form>
         <div className="botones">
-          <button type="button" className="boton" onClick={limpiarFormulario}>
+          <button type="button" className="boton" onClick={cancelarRegistro}>
             Cancelar
           </button>
           <button
-            type="button"
+            type="submit"
             className="boton"
             //al hacer click ejecuta la funcion guardar
-            onClick={guardar}
+            onClick={guardarUsuario}
           >
             Guardar
           </button>

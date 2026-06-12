@@ -17,10 +17,26 @@ $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH); #la url del cliente
 $uri = rtrim($uri, '/'); #quita el slash del final para que en ves de quedar ej: /cliente/ quede /cliente
 
 #si la ruta que escribió el cliente es /usuarios entonces ejecuta el controller usuariosController.
+
+#ruta para registro de usuarios
 if ($uri === '/usuarios') {
     require_once __DIR__ . '/controllers/UsuariosController.php';
+
+    #ruta del login
 } else if ($uri === '/login') {
     require_once __DIR__ . '/controllers/LoginController.php';
+
+    #ruta para registro de huespedes
+} else if ($uri === '/registroH') {
+    require_once __DIR__ . '/controllers/HuespedController.php';
+
+    #ruta para huespedes activos
+} else if ($uri === '/huespedesActivos') {
+    require_once __DIR__ . '/controllers/HuespedesActivosController.php';
+} else if ($uri === '/checkOut') {
+    require_once __DIR__ . '/controllers/checkOutController.php';
+} else if ($uri === '/habitaciones') {
+    require_once __DIR__ . '/controllers/HabitacionesController.php';
 } else {
     Respond(['error' => 'Ruta no encontrada'], 404);
 }#por si se pone una ruta no especificada en el navegador

@@ -45,4 +45,9 @@ a {
   color: white;
   cursor: pointer; /*cambia el cursor a la manito cuando me paro sobre el elemento*/
   margin-bottom: 20px;
+  transition: transform 0.1s;
+}
+
+.btn:active {
+  transform: scale(0.95);
 }

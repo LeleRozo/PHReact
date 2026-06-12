@@ -6,8 +6,10 @@ import "./App.css";
 import Login from "./pages/login.jsx";
 import Registro from "./pages/registroUsuario.jsx";
 import Home from "./pages/home.jsx";
-import HistorialH from "./pages/historialH.jsx";
+import GestionHuespedes from "./pages/gestionHuespedes.jsx";
 import RegistroH from "./pages/registroH.jsx";
+import Habitaciones from "./pages/habitaciones.jsx";
+import EdicionHabitaciones from "./pages/edicionHabitaciones.jsx";
 
 function App() {
   return (
@@ -20,8 +22,13 @@ function App() {
       <Route path="/registro" element={<Registro />} />
       {/**ruta para el inicio de la aplicación */}
       <Route path="/home" element={<Home />} />
-      <Route path="/historialH" element={<HistorialH />} />
-      <Route path="/registroH" element={<RegistroH/>}/>
+      {/**ruta para abrir el historialde huespedes  */}
+      <Route path="/historialH" element={<GestionHuespedes />} />
+      <Route path="/registroH" element={<RegistroH />} />
+      {/**ruta para habitaciones */}
+      <Route path="/habitaciones" element={<Habitaciones />} />
+      {/**ruta para la edicion de habitaciones */}
+      <Route path="/edicionHabitaciones" element={<EdicionHabitaciones />} />
     </Routes>
   );
 }
