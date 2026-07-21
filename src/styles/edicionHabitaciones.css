@@ -1,7 +1,6 @@
 .conPrincipal {
   display: flex;
   flex-direction: column;
-
   margin: 3%;
   justify-content: center;
   align-items: center;
@@ -53,3 +52,8 @@
   background: none;
   cursor: pointer;
 }
+.tipohabi {
+  background-color: white;
+  width: 300px;
+}
+

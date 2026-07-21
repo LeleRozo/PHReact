@@ -1,0 +1,43 @@
+.contprin {
+  display: flex;
+  flex-direction: column;
+  width: 78%;
+  text-align: center;
+  height: max-content;
+  margin-left: 260px;
+}
+.contenedorCards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 70px;
+}
+.cardhab {
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+}
+.disponible {
+  background-color: rgba(76, 175, 80, 0.2);
+}
+.ocupada {
+  background-color: rgba(154, 234, 248, 0.443);
+}
+.mantenimiento {
+  background-color: rgba(255, 235, 59, 0.25);
+}
+.fueraServicio {
+  background-color: rgba(244, 67, 54, 0.2);
+}
+select {
+  width: max-content;
+  background-color: rgba(249, 249, 249, 0.8);
+}
+
+.edihab {
+  text-align: end;
+  margin-left: 20px;
+  margin-top: 20px;
+  text-decoration: underline;
+  padding-left: 15px;
+}

@@ -18,6 +18,7 @@ $uri = rtrim($uri, '/'); #quita el slash del final para que en ves de quedar ej:
 
 #si la ruta que escribió el cliente es /usuarios entonces ejecuta el controller usuariosController.
 
+#ENDPOINTS
 #ruta para registro de usuarios
 if ($uri === '/usuarios') {
     require_once __DIR__ . '/controllers/UsuariosController.php';

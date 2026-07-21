@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Notificacion from "../components/notificacion";
 import { BsPencil } from "react-icons/bs";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 function EdicionHabitaciones() {
   const [numero_habitacion, setNumeroHabitacion] = useState("");
@@ -135,6 +136,9 @@ function EdicionHabitaciones() {
 
   return (
     <div className="conPrincipal">
+      <div className="edihab">
+        <Link to="/home">Ir al inicio</Link>
+      </div>
       <h2>HABITACIONES DISPONIBLES</h2>
       <p>Por favor registre los detalles de cada habitacion de su hotel</p>
       <Notificacion mensaje={mensaje} tipo={TipoMensaje} />
@@ -147,19 +151,23 @@ function EdicionHabitaciones() {
           onSubmit={editando ? actualizarHabitacion : guardarHabitacion}
         >
           <input
-            type="number"
+            type="text"
             placeholder="Digite el numero de la habitación"
             name="numero_habitacion"
             value={numero_habitacion}
             onChange={(e) => setNumeroHabitacion(e.target.value)}
           />
-          <input
+          <select
+            className="tipohabi"
             type="text"
             placeholder="Tipo de habitación"
             name="tipo_habitacion"
             value={tipo_habitacion}
             onChange={(e) => setTipoHabitacion(e.target.value)}
-          />
+          >
+            <option value="aire">Con aire</option>
+            <option value="ventilador">Con ventilador</option>
+          </select>
 
           <input
             type="text"
